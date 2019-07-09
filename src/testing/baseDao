@@ -1,0 +1,117 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import model.Author;
+
+public class BaseDao {
+	private Connection conn = null;
+
+	public CAPS getCAPSByID(int lowerID) {
+		// TODO Auto-generated method stub
+		//PreparedStatement prepareStatement = null;
+		conn = JDBCDao.getConnection();
+
+		CAPS tempCaps = new CAPS();
+		ResultSet resultSet = null;
+		String sql = "SELECT * FROM tbl_lower where lowerId=?";
+		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
+			prepareStatement.setInt(1, lowerID); 
+			resultSet = prepareStatement.executeQuery();
+			while(resultSet.next()) {
+				//esultSet.getInt(1));
+				//tempAuthor.setAuthorName(resultSet.getString(2));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return tempCaps;
+	}
+	
+	public void addByName(String lowerName) {
+		// TODO Auto-generated method stub
+		conn = JDBCDao.getConnection();
+		ResultSet resultSet = null;
+		String sql = "INSERT INTO `lms`.`tbl_lower` (`REPLACE`) VALUES (?)";
+		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
+			//prepareStatement.setString(1, lowerName);
+			
+			prepareStatement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//return null;
+	}
+
+	public void removeByID(int lowerID) {
+		conn = JDBCDao.getConnection();
+
+		String sql = "delete from tbl_lower where lowerId = ?";
+		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
+			
+			prepareStatement.setInt(1, lowerID);
+			//execute
+			prepareStatement.execute();
+		} catch (SQLException e) { 	
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	public void updateByCAPSID(int lowerID, String newCAPSName) {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCDao.getConnection();
+		String sql = "update tbl_lower set lowerName = ? "
+				+ "where authorId = ?";
+		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
+			//prepareStatement.setString(1, newCAPSName);
+			//prepareStatement.setInt(2, lowerID);
+			//execute
+			prepareStatement.executeUpdate();
+			
+			
+		} catch (SQLException e) { 	
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+}
