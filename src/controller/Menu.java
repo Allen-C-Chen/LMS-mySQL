@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.Scanner;
-
 import dao.AllService;
 
 public class Menu {
@@ -12,12 +10,11 @@ public class Menu {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	    Scanner scan = new Scanner( System.in );
 		boolean run = true;
 		String mainMenuChoice = "";
 		while(run) {
 			System.out.println(GCITMENU);
-			mainMenuChoice = scan.nextLine();
+			mainMenuChoice = InputHelper.userString();
 			switch(mainMenuChoice) {
 			case "1": //Librarian
 				LibrarianController.runLibrarianLib1();

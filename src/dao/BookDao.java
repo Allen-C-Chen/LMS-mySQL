@@ -1,11 +1,11 @@
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import model.Author;
 import model.Book;
 
@@ -140,10 +140,24 @@ public class BookDao {
 			}
 		}
 	}
+	
+	public ArrayList<Book> getAllBooksLambda(){
+		//ResultSet resultSet = null;
+		ArrayList<Book> books = new ArrayList<Book>();
+		try(Connection conn = JDBCDao.getConnection()){
+			String sql = "SELECT * FROM tbl_book";
+			try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
+		    }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return books;
 
+	}
 	public ArrayList<Book> getAllBooks() {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		ResultSet resultSet = null;
 		ArrayList<Book> books = new ArrayList<Book>();
 		String sql = "SELECT * FROM tbl_book";

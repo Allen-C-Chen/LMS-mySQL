@@ -119,10 +119,12 @@ public class PublisherDao {
 	    ArrayList<Publisher> publishers = new ArrayList<Publisher>();
 		ResultSet resultSet = null;
 		String sql = "SELECT * FROM lms.tbl_publisher;";
-		Publisher newPub = new Publisher();
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
+			
 			resultSet = prepareStatement.executeQuery();
 			while(resultSet.next()) {
+				Publisher newPub = new Publisher();
+
 				int pubID = resultSet.getInt(1);
 				String pubName= resultSet.getString(2);
 				String pubAdddress= resultSet.getString(3);
