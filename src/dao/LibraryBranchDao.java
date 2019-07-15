@@ -12,12 +12,10 @@ import model.LibraryBranch;
 import java.util.ArrayList; // import the ArrayList class
 
 public class LibraryBranchDao {
-	Connection conn = null;
+	private Connection conn = null;
 	public LibraryBranch getLibraryBranchByID(int libraryBranchID) {
 		// TODO Auto-generated method stub
-		//PreparedStatement prepareStatement = null;
 		conn = JDBCDao.getConnection();
-
 		LibraryBranch tempLibraryBranch = new LibraryBranch();
 		ResultSet resultSet = null;
 		String sql = "SELECT * FROM tbl_library_branch where branchId=?";
@@ -50,9 +48,6 @@ public class LibraryBranchDao {
 	public void addByNameAndAddress(String libraryBranchName, String libraryBranchAddress) {
 		// TODO Auto-generated method stub
 		conn = JDBCDao.getConnection();
-		ResultSet resultSet = null;
-		//String sql = "INSERT INTO `lms`.`tbl_library_branch` (`branchName`, `branchAddress`) VALUES (?, ?)";
-		//String sql = "INSERT INTO `lms`.`tbl_library_branch` (`branchName`, `branchAddress`) VALUES (?, ?);";
 		String sql = "INSERT INTO `lms`.`tbl_library_branch` (`branchName`, `branchAddress`) VALUES (?,?)";
 
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
@@ -76,7 +71,6 @@ public class LibraryBranchDao {
 
 	public void removeByID(int libraryBranchID) {
 		conn = JDBCDao.getConnection();
-
 		String sql = "delete from tbl_library_branch where branchId = ?";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			
@@ -98,7 +92,7 @@ public class LibraryBranchDao {
 	}
 	public void updateLibraryBranchNameByID(int libraryBranchID, String newLibraryBranchName) {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		String sql = "update tbl_library_branch set branchName = ? "
 				+ "where branchId = ?";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
@@ -106,13 +100,10 @@ public class LibraryBranchDao {
 			prepareStatement.setInt(2, libraryBranchID);
 			//execute
 			prepareStatement.executeUpdate();
-			
-			
 		} catch (SQLException e) { 	
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		finally {
 			try {
 				conn.close();
@@ -122,19 +113,15 @@ public class LibraryBranchDao {
 			}
 		}
 	}
-
 	public void updateLibraryBranchAddressByID(int libraryBranchID, String newLibraryBranchAddress) {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		String sql = "update tbl_library_branch set branchAddress = ? "
 				+ "where branchId = ?";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			prepareStatement.setString(1, newLibraryBranchAddress);
 			prepareStatement.setInt(2, libraryBranchID);
-			//execute
-			prepareStatement.executeUpdate();
-			
-			
+			prepareStatement.executeUpdate();		
 		} catch (SQLException e) { 	
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,7 +138,7 @@ public class LibraryBranchDao {
 	}
 	
 	public ArrayList<Book> displayAllBooksAndAuthorInABranchID(int branchID) {
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 	    ArrayList<Book> books = new ArrayList<Book>();
 
 		ResultSet resultSet = null;
@@ -180,7 +167,6 @@ public class LibraryBranchDao {
 				newBook.setTitle(title);
 				newBook.setBookId(bookID);
 				books.add(newBook);
-				//System.out.println(i + ") "+ name +", " +author);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -195,17 +181,14 @@ public class LibraryBranchDao {
 			}
 		}
 		return books;
-
-
 	}
 	public ArrayList<LibraryBranch> displayAllLibraryBranchByNameAndAddress() {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 	    ArrayList<LibraryBranch> libraryBranches = new ArrayList<LibraryBranch>();
 
 		ResultSet resultSet = null;
 		String sql = "SELECT * FROM tbl_library_branch;";
-		int i = 1;
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			resultSet = prepareStatement.executeQuery();
 			while(resultSet.next()) {
@@ -216,10 +199,7 @@ public class LibraryBranchDao {
 				libraryBranch.setBranchID(branchID);
 				libraryBranch.setBranchName(name);
 				libraryBranch.setBranchAddress(address);
-				//System.out.println(i + ") " + libraryBranch.printNameAndAddress());
 				libraryBranches.add(libraryBranch);
-				//System.out.println(i + ") "+ name +", " +address);
-				i++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

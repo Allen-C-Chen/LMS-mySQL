@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.Author;
 import model.Book;
 import model.BookLoans;
 import model.Borrower;
@@ -14,6 +13,13 @@ import model.LibraryBranch;
 
 public class BookLoanDao {
 	private Connection conn = null;
+/**
+ * 
+ * @param bookID
+ * @param branchID
+ * @param cardNo
+ * @return
+ */
 
 	public BookLoans getBookLoansByID(int bookID, int branchID, int cardNo) {
 		// TODO Auto-generated method stub
@@ -91,7 +97,6 @@ public class BookLoanDao {
 	public void addBookLoan(int bookID, int branchId, int cardNo, String checkInDate, String checkOutDate) {
 		// TODO Auto-generated method stub
 		conn = JDBCDao.getConnection();
-		ResultSet resultSet = null;
 		String sql = "INSERT INTO `lms`.`tbl_book_loans` (`bookId`, `branchId`, `cardNo`, `dateOut`, `dueDate`) " 
 		+ " VALUES (?, ?, ?, ?,?);";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
@@ -149,17 +154,17 @@ public class BookLoanDao {
 	}
 	public ArrayList<BookLoans> getAllBooks() {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		ResultSet resultSet = null;
-		ArrayList<BookLoans> BookLoansData = new ArrayList();
+		ArrayList<BookLoans> BookLoansData = new ArrayList<BookLoans>();
 		String sql = "SELECT * FROM tbl_book_loans;";
+		
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			resultSet = prepareStatement.executeQuery();
 			while(resultSet.next()) {
 				BookLoans newBookLoans = new BookLoans();
 				Book newBook = new Book();
 				newBook.setBookId(resultSet.getInt(1));
-
 				LibraryBranch newLibraryBranch = new LibraryBranch();
 				newLibraryBranch.setBranchID(resultSet.getInt(2));
 				Borrower newBorrower = new Borrower();
@@ -191,9 +196,9 @@ public class BookLoanDao {
 	}		
 	public ArrayList<BookLoans> getAllBooksByCardNo( int cardNo) {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		ResultSet resultSet = null;
-		ArrayList<BookLoans> BookLoansData = new ArrayList();
+		ArrayList<BookLoans> BookLoansData = new ArrayList<BookLoans>();
 		String sql = "SELECT * FROM tbl_book_loans where cardNo =?;";
 
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
@@ -216,8 +221,6 @@ public class BookLoanDao {
 				
 				newBookLoans.setDateOut(resultSet.getString(4));
 				newBookLoans.setDueDate(resultSet.getString(5));
-				//tempBook.setPubId(resultSet.getInt(4));
-				//System.out.println(tempBook.toString());
 				BookLoansData.add(newBookLoans);
 			}
 		} catch (SQLException e) {

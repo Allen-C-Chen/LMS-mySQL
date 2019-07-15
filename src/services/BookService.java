@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import dao.AuthorDao;
 import dao.BookDao;
-import model.Author;
 import model.Book;
 
 public class BookService {

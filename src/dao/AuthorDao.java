@@ -1,21 +1,18 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import model.Author;
-import model.Book;
 
 public class AuthorDao {
 
 	private Connection conn = null;
 	public ArrayList<Author> geAllAuthor(){
 		conn = JDBCDao.getConnection();
-		ArrayList<Author> authors = new ArrayList();
+		ArrayList<Author> authors = new ArrayList<Author>();
 
 		ResultSet resultSet = null;
 		String sql = "SELECT * FROM tbl_author;";
@@ -76,7 +73,6 @@ public class AuthorDao {
 	public void addByName(String authorName) {
 		// TODO Auto-generated method stub
 		conn = JDBCDao.getConnection();
-		ResultSet resultSet = null;
 		String sql = "INSERT INTO `lms`.`tbl_author` (`authorName`) VALUES (?)";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			prepareStatement.setString(1, authorName);
@@ -146,7 +142,7 @@ public class AuthorDao {
 	}
 	public void updateByAuthorID(int authorID, String newAuthorName) {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		String sql = "update tbl_author set authorName = ? "
 				+ "where authorId = ?";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){

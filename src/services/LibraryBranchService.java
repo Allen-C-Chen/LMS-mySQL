@@ -3,7 +3,6 @@ package services;
 import java.util.ArrayList;
 
 import dao.LibraryBranchDao;
-import model.Author;
 import model.Book;
 import model.LibraryBranch;
 

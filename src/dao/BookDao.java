@@ -10,19 +10,17 @@ import model.Author;
 import model.Book;
 
 public class BookDao {
-	Connection conn = JDBCDao.getConnection();
+	private Connection conn = null;
 	
 	public void updateByBookID(int bookID, String newBookTitle) {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
-		String sql = "UPDATE `lms`.`tbl_book` SET `title` = ? WHERE (`bookId` = ?);";
+		conn = JDBCDao.getConnection();
+		String sql = "UPDATE `lms`.`tbl_book` SET `title` = ? WHERE (`bookId` = ?);"; 
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			prepareStatement.setString(1, newBookTitle);
 			prepareStatement.setInt(2, bookID);
 			//execute
 			prepareStatement.executeUpdate();
-			
-			
 		} catch (SQLException e) { 	
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,10 +60,9 @@ public class BookDao {
 	}
 	public Book getBookByID(int bookID) {
 		// TODO Auto-generated method stub
-		//PreparedStatement prepareStatement = null;
+		conn = JDBCDao.getConnection();
 		Book tempBook = new Book();
 		ResultSet resultSet = null;
-
 		String sql = "SELECT * FROM tbl_book where bookId=?";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			prepareStatement.setInt(1, bookID); 
@@ -92,7 +89,7 @@ public class BookDao {
 
 	public void printAllBooks() {
 		// TODO Auto-generated method stub
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		Book tempBook = new Book();
 		ResultSet resultSet = null;
 
@@ -124,7 +121,6 @@ public class BookDao {
 	public void add(String bookName, int authorID, int publisherID) {
 		// TODO Auto-generated method stub
 		conn = JDBCDao.getConnection();
-		ResultSet resultSet = null;
 		String sql = "INSERT INTO `lms`.`tbl_book` (`title`, `authId`, `pubId`) VALUES (?, ?, ?)";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			prepareStatement.setString(1, bookName);
@@ -149,7 +145,7 @@ public class BookDao {
 		// TODO Auto-generated method stub
 		Connection conn = JDBCDao.getConnection();
 		ResultSet resultSet = null;
-		ArrayList<Book> books = new ArrayList();
+		ArrayList<Book> books = new ArrayList<Book>();
 		String sql = "SELECT * FROM tbl_book";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			resultSet = prepareStatement.executeQuery();
@@ -160,7 +156,7 @@ public class BookDao {
 				Author newAuthor = new Author();
 				newAuthor.setAuthorId(resultSet.getInt(3));
 				tempBook.setAuthor(newAuthor);
-				//tempBook.setPubId(resultSet.getInt(4));
+				//tempBook.setPubId(resultSet.getInt(4)); 
 				//System.out.println(tempBook.toString());
 				books.add(tempBook);
 			}

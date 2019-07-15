@@ -5,17 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import model.Book;
 import model.Publisher;
 
 public class PublisherDao {
-	Connection conn = null;
+	private Connection conn = null;
 	
 	public Publisher getPublisherByID(int publisherID) {
 		// TODO Auto-generated method stub
 		//PreparedStatement prepareStatement = null;
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 
 		Publisher tempPublisher = new Publisher();
 		ResultSet resultSet = null;
@@ -70,8 +68,6 @@ public class PublisherDao {
 	public void addPublisher(String publisherName, String publisherAddress, String publisherPhone) { //do upidate later
 		// TODO Auto-generated method stub
 		conn = JDBCDao.getConnection();
-
-		ResultSet resultSet = null;
 		String sql = "INSERT INTO `lms`.`tbl_publisher` (`publisherName`, `publisherAddress`, `publisherPhone`) VALUES (?, ?, ?);";
 		
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
@@ -96,24 +92,18 @@ public class PublisherDao {
 	}
 	public void updateAll(int publisherID, String publisherName, String publisherAddress, String publisherPhone) {
 		// TODO Auto-generated method stub
-		//UPDATE `lms`.`tbl_publisher` SET `publisherName` = ?, `publisherAddress` = ?, `publisherPhone` = ?  WHERE (`publisherId` = ?);
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 		String sql = "UPDATE `lms`.`tbl_publisher` SET `publisherName` = ?, `publisherAddress` = ?, `publisherPhone` = ?  WHERE (`publisherId` = ?);";
 		try(PreparedStatement prepareStatement = conn.prepareStatement(sql)){
 			prepareStatement.setString(1, publisherName);
 			prepareStatement.setString(2, publisherAddress);
 			prepareStatement.setString(3, publisherPhone);
-
 			prepareStatement.setInt(4, publisherID);
-			//execute
 			prepareStatement.executeUpdate();
-			
-			
 		} catch (SQLException e) { 	
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		finally {
 			try {
 				conn.close();
@@ -125,7 +115,7 @@ public class PublisherDao {
 
 	}
 	public ArrayList<Publisher> getPubList(){
-		Connection conn = JDBCDao.getConnection();
+		conn = JDBCDao.getConnection();
 	    ArrayList<Publisher> publishers = new ArrayList<Publisher>();
 		ResultSet resultSet = null;
 		String sql = "SELECT * FROM lms.tbl_publisher;";

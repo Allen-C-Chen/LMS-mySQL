@@ -1,8 +1,6 @@
 package services;
 
 import java.util.ArrayList;
-
-import dao.BookDao;
 import dao.PublisherDao;
 import model.Publisher;
 

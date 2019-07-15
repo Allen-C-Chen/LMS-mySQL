@@ -9,14 +9,13 @@ import java.sql.SQLException;
 public class JDBCDao {
 	public static Connection getConnection() {
 		Connection conn = null;
-		PreparedStatement prepareStatement = null;
-		ResultSet resultSet = null;
+		PreparedStatement prepareStatement = null; //deete
+		ResultSet resultSet = null; //delete
 		try {
 			// Legacy
 			// Class.forName("com.mysql.jdbc.Driver");
 			conn = (Connection) DriverManager.getConnection(
-																									"jdbc:mysql://localhost:3306/LMS?useSSL=false&autoReconnect=true&serverTimezone=UTC", "root", "root");
-			//				"jdbc:mysql://localhost:3306/library?useSSL=false&autoReconnect=true&serverTimezone=UTC", "root", "BSTtree<3!");
+					"jdbc:mysql://localhost:3306/LMS?useSSL=false&autoReconnect=true&serverTimezone=UTC", "root", "root");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

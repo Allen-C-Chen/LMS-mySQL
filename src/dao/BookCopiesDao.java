@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Author;
 import model.Book;
 import model.BookCopies;
 import model.LibraryBranch;
@@ -21,10 +20,7 @@ public class BookCopiesDao {
 			prepareStatement.setInt(1, numOfCOpies);
 			prepareStatement.setInt(2, bookID);
 			prepareStatement.setInt(3, branchID);
-			//execute
 			prepareStatement.executeUpdate();
-			
-			
 		} catch (SQLException e) { 	
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,14 +48,10 @@ public class BookCopiesDao {
 			prepareStatement.setInt(2, branchID); 
 			resultSet = prepareStatement.executeQuery();
 			while(resultSet.next()) {
-				//System.out.println("author name is :: " + resultSet.getString("authorName"));
-				//tempAuthor.setAuthorId(resultSet.getInt(1));
-				//tempAuthor.setAuthorName(resultSet.getString(2));
 				int newBookID = resultSet.getInt(1);
 				int newBranchID = resultSet.getInt(2);
 				int NumOfCopies = resultSet.getInt(3);
 				book.setBookId(newBookID);
-				//book.setAuthor(newBranchID);
 				branch.setBranchID(newBranchID);
 				tempBookCopies.setBook(book);
 				tempBookCopies.setLibraryBranch(branch);

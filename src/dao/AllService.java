@@ -23,9 +23,7 @@ public class AllService {
 		borrowerService = new BorrowerService();
 		libraryBranchService = new LibraryBranchService();
 		bookCopiesService = new BookCopiesService();
-		bookLoanService = new BookLoanService();
-		//bookoans
-	}
+		bookLoanService = new BookLoanService();	}
 
 	public BookLoanService getBookLoanService() {
 		return bookLoanService;
