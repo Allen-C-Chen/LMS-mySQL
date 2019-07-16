@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import dao.AllService;
 import model.Author;
@@ -46,9 +47,9 @@ public class AdminstratorController {
 	private static void overRideCheckOut() {
 		// TODO Auto-generated method stub
 		ArrayList<BookLoans>  newList = allService.getBookLoanService().getAllList();
-		for(int i = 0; i < newList.size(); i ++) {
-			System.out.println(i + ") " + newList.get(i));
-		}
+		IntStream.range(0, newList.size())
+		.forEach(index -> System.out.println(index + " -> " + newList.get(index)));
+
 		System.out.println("Please Choose a number");
 		int choiceOfBookLoans =InputHelper.checkInput(0,newList.size()-1);
 		BookLoans newBookLoans = newList.get(choiceOfBookLoans);
@@ -94,23 +95,18 @@ public class AdminstratorController {
 			//can not add a book without an author in the data base , same with publisher
 			//second display all authors
 			ArrayList<Author> authors = allService.getAuthorService().getAllAuthors();
-			for(int i = 0; i < authors.size(); i ++) {
-				System.out.println(i + ") " + authors.get(i));
-			}
+			IntStream.range(0, authors.size())
+			.forEach(index -> System.out.println(index + " -> " + authors.get(index)));
+			
 			System.out.println("Please choose an author from the list");
 			int choiceOfAuthor =InputHelper.checkInput(0,authors.size()-1);
 			Author newAuthor = authors.get(choiceOfAuthor); //no errro detection
 			//third display all publishers
 			ArrayList<Publisher> publishers = allService.getPublisherService().getList();
-			for(int i = 0; i < publishers.size(); i ++) {
-				System.out.println(i + ") " + publishers.get(i));
-			}
-			//int[] idx = {0}; need to remove
-			publishers.forEach((i) -> {
-				int index = 0;
-				System.out.println( index + ") " + i );
-				index++;
-			});
+
+			IntStream.range(0, publishers.size())
+			.forEach(index -> System.out.println(index + " -> " + publishers.get(index)));
+			
 			System.out.println("Please choose an publisher from the list");
 			int choiceOfPublisher =InputHelper.checkInput(0,publishers.size()-1);
 			Publisher newPublisher = publishers.get(choiceOfPublisher);
@@ -119,9 +115,12 @@ public class AdminstratorController {
 			break;
 		case("2"): //update
 			ArrayList<Book>  newList = allService.getBookService().getListOfBooks();
-			for(int i = 0; i < newList.size(); i ++) {
-				System.out.println(i + ") " + newList.get(i));
-			}
+//			for(int i = 0; i < newList.size(); i ++) {
+//				System.out.println(i + ") " + newList.get(i));
+//			}
+			IntStream.range(0, newList.size())
+			.forEach(index -> System.out.println(index + " -> " + newList.get(index)));
+			
 			System.out.println("Please Choose a number");
 			int choiceOfBook = InputHelper.checkInput(0,newList.size()-1);
 			Book newBook = newList.get(choiceOfBook);
@@ -134,9 +133,10 @@ public class AdminstratorController {
 		case("3"): //delete
 			System.out.println("What is the name of the Book you are removing");
 			ArrayList<Book>  newListRemove = allService.getBookService().getListOfBooks();
-			for(int i = 0; i < newListRemove.size(); i ++) {
-				System.out.println(i + ") " + newListRemove.get(i));
-			}
+
+			IntStream.range(0, newListRemove.size())
+			.forEach(index -> System.out.println(index + " -> " + newListRemove.get(index)));
+			
 			System.out.println("Please Choose a number");
 			int choiceOfBookRemove = InputHelper.checkInput(0,newListRemove.size()-1);
 			Book newBookRemove = newListRemove.get(choiceOfBookRemove);
@@ -160,9 +160,10 @@ public class AdminstratorController {
 			break;
 		case("2"): //update
 			ArrayList<Author>  newList = allService.getAuthorService().getAllAuthors();
-			for(int i = 0; i < newList.size(); i ++) {
-				System.out.println(i + ") " + newList.get(i).getAuthorName());
-			}
+
+			IntStream.range(0, newList.size())
+			.forEach(index -> System.out.println(index + " -> " + newList.get(index)));
+			
 			System.out.println("Please choose a number for author name");
 			int choiceOfAuthor = InputHelper.checkInput(0,newList.size()-1);
 			Author tempAuthor = newList.get(choiceOfAuthor);
@@ -175,9 +176,10 @@ public class AdminstratorController {
 		case("3"):
 			System.out.println("What is the name of the Author you are removing");
 			ArrayList<Author>  removeNewList = allService.getAuthorService().getAllAuthors();
-			for(int i = 0; i < removeNewList.size(); i ++) {
-				System.out.println(i + ") " + removeNewList.get(i).getAuthorName());
-			}
+
+			IntStream.range(0, removeNewList.size())
+			.forEach(index -> System.out.println(index + " -> " + removeNewList.get(index)));
+			
 			System.out.println("Please choose a number for author name");
 			int choiceOfAuthorRemove = InputHelper.checkInput(0,removeNewList.size()-1);
 			Author tempAuthorRemove = removeNewList.get(choiceOfAuthorRemove);
@@ -208,9 +210,10 @@ public class AdminstratorController {
 		case("2"): //update
 			System.out.println("What is the name of the publisher you are updating");
 			ArrayList<Publisher>  newList = allService.getPublisherService().getList();
-			for(int i = 0; i < newList.size(); i ++) {
-				System.out.println(i + ") " + newList.get(i));
-			}
+
+			IntStream.range(0, newList.size())
+			.forEach(index -> System.out.println(index + " -> " + newList.get(index)));
+			
 			int choiceOfPublisher = InputHelper.checkInput(0,newList.size()-1);
 			Publisher tempPublisher = newList.get(choiceOfPublisher);
 			int publisherID = tempPublisher.getPublisherId();
@@ -225,9 +228,10 @@ public class AdminstratorController {
 		case("3"):
 			System.out.println("What is the name of the pubisher you are removing");
 			ArrayList<Publisher>  removeNewList = allService.getPublisherService().getList();
-			for(int i = 0; i < removeNewList.size(); i ++) {
-				System.out.println(i + ") " + removeNewList.get(i));
-			}
+
+			IntStream.range(0, removeNewList.size())
+			.forEach(index -> System.out.println(index + " -> " + removeNewList.get(index)));
+			
 			int choiceOfPublisherRemove = InputHelper.checkInput(0,removeNewList.size()-1);
 			Publisher tempPublisherRemov = removeNewList.get(choiceOfPublisherRemove);
 			int publisherIDRemove = tempPublisherRemov.getPublisherId();
@@ -252,9 +256,10 @@ public class AdminstratorController {
 			break;
 		case("2"): //update
 			ArrayList<LibraryBranch>  newList = allService.getLibraryBranchService().displayAllLibraryBranchByNameAndAddress();
-			for(int i = 0; i < newList.size(); i ++) {
-				System.out.println(i + ") " + newList.get(i));
-			}
+
+			IntStream.range(0, newList.size())
+			.forEach(index -> System.out.println(index + " -> " + newList.get(index)));
+			
 			System.out.println("please choose a number");
 			int choiceOfLibBranch = InputHelper.checkInput(0,newList.size()-1);
 			LibraryBranch libraryBranch = newList.get(choiceOfLibBranch);
@@ -270,9 +275,10 @@ public class AdminstratorController {
 		case("3"): //delete
 			System.out.println("What is the name of the Library Branch you are removing");
 			ArrayList<LibraryBranch>  removeList = allService.getLibraryBranchService().displayAllLibraryBranchByNameAndAddress();
-			for(int i = 0; i < removeList.size(); i ++) {
-				System.out.println(i + ") " + removeList.get(i));
-			}
+
+			IntStream.range(0, removeList.size())
+			.forEach(index -> System.out.println(index + " -> " + removeList.get(index)));
+			
 			System.out.println("please choose a number");
 			int choiceOfLibBranchRemove = InputHelper.checkInput(0,removeList.size()-1);
 			LibraryBranch libraryBranchRemove = removeList.get(choiceOfLibBranchRemove);
@@ -301,9 +307,10 @@ public class AdminstratorController {
 			break;
 		case("2"):
 			ArrayList<Borrower>  newList = allService.getBorrowerService().getAllList();
-			for(int i = 0; i < newList.size(); i ++) {
-				System.out.println(i + ") " + newList.get(i));
-			}
+
+			IntStream.range(0, newList.size())
+			.forEach(index -> System.out.println(index + " -> " + newList.get(index)));
+			
 			System.out.println("please choose a number");
 			int choiceOfBorrower = InputHelper.checkInput(0,newList.size()-1);
 			Borrower borrower = newList.get(choiceOfBorrower);
@@ -319,9 +326,10 @@ public class AdminstratorController {
 		case("3"):
 			System.out.println("What is the name of the Borrowers you are removing");
 			ArrayList<Borrower>  newListRemove = allService.getBorrowerService().getAllList();
-			for(int i = 0; i < newListRemove.size(); i ++) {
-				System.out.println(i + ") " + newListRemove.get(i));
-			}
+
+			IntStream.range(0, newListRemove.size())
+			.forEach(index -> System.out.println(index + " -> " + newListRemove.get(index)));
+			
 			System.out.println("please choose a number");
 			int choiceOfBorrowerRemove = InputHelper.checkInput(0,newListRemove.size()-1);
 			Borrower borrowerRemove = newListRemove.get(choiceOfBorrowerRemove);

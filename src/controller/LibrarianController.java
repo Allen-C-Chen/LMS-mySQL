@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
+
 import dao.AllService;
 import model.Book;
 import model.BookCopies;
@@ -20,9 +22,8 @@ public class LibrarianController {
 			//runLibraryLib2();
 			System.out.println("Here is a list of the locations and branches we have");
 			ArrayList<LibraryBranch> libArray = allService.getLibraryBranchService().displayAllLibraryBranchByNameAndAddress();
-			for(int i = 0; i < libArray.size(); i ++) {
-				System.out.println(i + ") " + libArray.get(i).printNameAndAddress());
-			}
+			IntStream.range(0, libArray.size())
+			.forEach(index -> System.out.println(index + " -> " + libArray.get(index)));
 
 			System.out.println("Please select the number of the branch");
 			int num = InputHelper.checkInput(0,libArray.size()-1);
@@ -37,11 +38,7 @@ public class LibrarianController {
 
 		
 	}
-//	private static void runLibraryLib2() {
-//		System.out.println("Here is a list of the locations and branches we have");
-//		allService.getLibraryBranchService().displayAllLibraryBranchByNameAndAddress();
-//
-//	}
+
 	private static void runLibraryLib3(String branchName, int branchID) {
 
 		System.out.println("1) Update the details of the Library"
@@ -81,9 +78,10 @@ public class LibrarianController {
 	private static void runLibraryLib3AddCopies(int branchID) {
 		System.out.println("Pick the Book you want to add copies of, to your branch" );
 		ArrayList<Book> libArray = allService.getLibraryBranchService().displayAllBooksAndAuthorInABranchID(branchID);
-		for(int i = 0; i < libArray.size(); i ++) {
-			System.out.println(i + ") " + libArray.get(i).printTitleAndAuthor());
-		}
+
+		IntStream.range(0, libArray.size())
+		.forEach(index -> System.out.println(index + " -> " + libArray.get(index)));
+		
 		int choiceOfBook = InputHelper.checkInput(0,libArray.size()-1);
 		Book tempBook = libArray.get(choiceOfBook );
 		int bookID = tempBook.getBookId();
